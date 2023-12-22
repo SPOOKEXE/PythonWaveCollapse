@@ -265,17 +265,18 @@ def example_scenario( ) -> None:
 	config = WaveCollapseConfig( weights, rules )
 
 	world = AbstractWorld( WORLD_X, WORLD_Y, config )
-	drawWorld = DrawWorld( world )
+	world.complete_collapse()
 
 	done = False
-
 	if INTERACTIVE == False:
 		while done == False:
-			result = world.waveFunctionCollapse()
+			result = world.wave_function_collapse()
 			if result == 0:
 				done = True
 
+	drawWorld = DrawWorld( world )
 	drawWorld.update()
+
 	isRunning = True
 	counter = 0
 

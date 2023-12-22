@@ -4,6 +4,7 @@ from __future__ import annotations
 import random
 
 from dataclasses import dataclass, field
+from time import sleep
 
 class Direction:
 	NORTH = 0
@@ -131,6 +132,7 @@ class AbstractWorld:
 					tile.add_neighbour(Direction.SOUTH, self.tileRows[y+1][x])
 				if x > 0:
 					tile.add_neighbour(Direction.WEST, self.tileRows[y][x-1])
+				# NE/SE/SW/NW
 
 	def get_entropy(self, x : int, y : int):
 		return self.tileRows[y][x].entropy
@@ -182,3 +184,7 @@ class AbstractWorld:
 					if reduced == True:
 						stack.push(neighbour) # When possibilities were reduced need to propagate further
 		return 1
+
+	def complete_collapse( self, interval : float | int = 0 ) -> None:
+		while self.wave_function_collapse() != 0:
+			sleep( interval )
